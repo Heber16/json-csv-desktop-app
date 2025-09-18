@@ -33,7 +33,7 @@ json-csv-app/
 
 ## How to Run
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/json-csv-app.git

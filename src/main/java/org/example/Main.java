@@ -2,24 +2,56 @@ package org.example;
 
 import com.heber.jsoncsv.JsonReader;
 import com.heber.jsoncsv.CsvWriter;
+import com.heber.jsoncsv.DataTransformer;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Main class to demonstrate reading a JSON file and writing it to a CSV file.
+ * Main class for converting a JSON file into a CSV file.
+ * <p>
+ * Usage:
+ * java -jar proyecto.jar <input.json> <output.csv> <delimiter>
+ * Example:
+ * java -jar proyecto.jar src/main/resources/datos.json src/main/resources/data.csv ";"
+ * </p>
+ *
+ * This program reads a JSON file, transforms it into a CSV-compatible format,
+ * and writes the result to a CSV file. The user can specify the delimiter for the CSV.
  */
 public class Main {
     public static void main(String[] args) {
-        JsonReader reader = new JsonReader();
-        CsvWriter writer = new CsvWriter();
+        // Validate command-line arguments
+        if (args.length < 3) {
+            System.out.println("Usage: java -jar proyecto.jar <input.json> <output.csv> <delimiter>");
+            return;
+        }
 
-        // Read JSON
-        List<Map<String, Object>> data = reader.readJson("src/main/resources/datos.json");
+        String inputFile = args[0];
+        String outputFile = args[1];
+        String delimiter = args[2];
 
-        // Write CSV
-        writer.writeCsv("src/main/resources/data.csv", data);
+        try {
+            // Step 1: Read JSON
+            System.out.println("Reading JSON from: " + inputFile);
+            JsonReader reader = new JsonReader();
+            List<Map<String, Object>> jsonData = reader.readJson(inputFile);
 
-        System.out.println("Process completed.");
+            // Step 2: Transform data
+            System.out.println("Transforming data...");
+            DataTransformer transformer = new DataTransformer();
+            List<List<String>> csvData = transformer.transform(jsonData);
+
+            // Step 3: Write CSV
+            System.out.println("Writing CSV to: " + outputFile + " with delimiter '" + delimiter + "'");
+            CsvWriter writer = new CsvWriter();
+            writer.writeCsv(outputFile, csvData, delimiter);
+
+            System.out.println("Process completed successfully!");
+        } catch (Exception e) {
+            System.err.println("Error during process: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
+

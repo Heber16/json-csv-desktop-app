@@ -1,46 +1,63 @@
-# JSON to CSV Converter
+# JSON to CSV Converter - Sprint 3
 
-This project is a Java desktop application that reads data from a JSON file and converts it into a CSV file using Jackson and OpenCSV libraries.
+## Description
+This Java program converts JSON files into CSV files.  
+It includes reading JSON, transforming the data into a CSV-compatible format, and writing the output file.
 
----
-
-## Technologies Used
-
-- Java 17
-- Maven
-- Jackson (for JSON parsing)
-- OpenCSV (for CSV writing)
-- JUnit 5 (for unit testing)
+The program allows configuring file names and the CSV delimiter through command-line arguments.
 
 ---
 
-## Project Structure
-
-json-csv-app/
-├── pom.xml
-├── src/
-│ ├── main/java/com/heber/jsoncsv/
-│ │ ├── Main.java
-│ │ ├── JsonReader.java
-│ │ └── CsvWriter.java
-│ └── test/java/com/heber/jsoncsv/
-│ ├── JsonReaderTest.java
-│ └── CsvWriterTest.java
-└── src/main/resources/
-└── datos.json
+## Requirements
+- Java 8 or higher
+- OpenCSV (dependency included in the project)
 
 ---
 
-## How to Run
+## Usage
 
-1. Clone the repository:
+### Compilation
+If the project is not compiled yet, you can use IntelliJ or Maven as needed.
+
+### Execution
+From the console or IntelliJ, run:
 
 ```bash
-git clone https://github.com/your-username/json-csv-app.git
-Open the project in IntelliJ IDEA.
+java -jar proyecto.jar <input.json> <output.csv> <delimiter>
 
-Run the Main.java class.
+<input.json> → path of the JSON file to read
 
-This will read src/main/resources/datos.json and generate src/main/resources/datos.csv.
+<output.csv> → path of the CSV file to create
 
-Check the generated CSV file.
+<delimiter> → character used to separate columns (e.g., , or ;)
+
+Example:
+
+java -jar proyecto.jar src/main/resources/datos.json src/main/resources/data.csv ";"
+
+Expected output
+Reading JSON from: src/main/resources/datos.json
+Transforming data...
+Writing CSV to: src/main/resources/data.csv with delimiter ';'
+Process completed successfully!
+
+Project structure
+src/main/java/com/heber/jsoncsv/
+    ├── Main.java
+    ├── JsonReader.java
+    ├── CsvWriter.java
+    └── DataTransformer.java
+
+Implemented functionalities
+
+Reading JSON files
+
+Transforming JSON data into CSV
+
+Writing CSV files with configurable delimiter
+
+Configurable parameters from the command line
+
+Error handling and progress messages
+
+Complete JavaDoc documentation

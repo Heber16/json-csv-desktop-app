@@ -1,0 +1,5 @@
+[{
+    "filePath": "datos.json",
+    "destinationPath": "src/main/resources/file.csv",
+    "delimiter": "\t"
+}]

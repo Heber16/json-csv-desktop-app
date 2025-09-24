@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public class JsonReader {
 
+    public JsonReader() {}
+
     /**
      * Reads a JSON file and converts it into a list of maps.
      * @param filePath path of the JSON file

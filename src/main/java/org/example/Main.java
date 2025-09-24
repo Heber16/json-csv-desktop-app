@@ -29,23 +29,32 @@ public class Main {
 
         String inputFile = args[0];
         String outputFile = args[1];
-        String delimiter = args[2];
+//        String delimiter = args[2];
+        String configFile = "src/main/resources/config.json";
 
         try {
+            System.out.println("Reading config file from: " + configFile);
+            JsonReader reader = new JsonReader();
+            List<Map<String, Object>> config = reader.readJson(configFile);
+            Object filePath = config.get(0).get("filePath");
+            Object destinationPath = config.get(0).get("destinationPath");
+            Object delimiter = config.get(0).get("delimiter");
+
             // Step 1: Read JSON
             System.out.println("Reading JSON from: " + inputFile);
-            JsonReader reader = new JsonReader();
-            List<Map<String, Object>> jsonData = reader.readJson(inputFile);
+            List<Map<String, Object>> jsonData = reader.readJson(filePath.toString());
+
 
             // Step 2: Transform data
             System.out.println("Transforming data...");
             DataTransformer transformer = new DataTransformer();
             List<List<String>> csvData = transformer.transform(jsonData);
 
+
             // Step 3: Write CSV
             System.out.println("Writing CSV to: " + outputFile + " with delimiter '" + delimiter + "'");
             CsvWriter writer = new CsvWriter();
-            writer.writeCsv(outputFile, csvData, delimiter);
+            writer.writeCsv(destinationPath.toString(), csvData, delimiter.toString());
 
             System.out.println("Process completed successfully!");
         } catch (Exception e) {
